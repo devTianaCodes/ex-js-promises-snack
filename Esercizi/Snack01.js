@@ -13,7 +13,22 @@ function getPostTitle(id) {
     .then((post) => post.title);
 }
 
-getPostTitle(4).then(console.log);
+function getPostTitle1(id) {
+  return new Promise ((resolve, reject) => {
+    fetch(`https://dummyjson.com/posts/${id}`)
+        .then(response => response.json())
+        .then (post => resolve(post.title))
+        .catch( reject)
+  } )
+}
+
+getPostTitle(4)
+      .then(console.log);
+getPostTitle1(4)
+      .then( title => console.log(title));
+      //.catch(err => console.error(err));
+
+
 
 //Bonus:Ottieni l'intero post con l'autore
 // Crea una funzione getPost(id) che recupera l'intero post. 
