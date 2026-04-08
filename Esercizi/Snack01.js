@@ -3,15 +3,15 @@
 // dal link https://dummyjson.com/posts/{id}
 
 function getPostTitle(id) {
-    return fetch(`https://dummyjson.com/posts/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Errore nel recupero del post: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((post) => post.title);
-  }
+  return fetch(`https://dummyjson.com/posts/${id}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Errore nel recupero del post: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((post) => post.title);
+}
 
 getPostTitle(4).then(console.log);
 
@@ -22,26 +22,26 @@ getPostTitle(4).then(console.log);
 // dalla chiamata https://dummyjson.com/users/{post.userId}.
 
 function getPost(id) {
-    return fetch(`https://dummyjson.com/posts/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Errore nel recupero del post: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((post) => {
-        return fetch(`https://dummyjson.com/users/${post.userId}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`Errore nel recupero dell'autore: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((user) => {
-            post.user = user;
-            return post;
-          });
-      });
-  }
+  return fetch(`https://dummyjson.com/posts/${id}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Errore nel recupero del post: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((post) => {
+      return fetch(`https://dummyjson.com/users/${post.userId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Errore nel recupero dell'autore: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((user) => {
+          post.user = user;
+          return post;
+        });
+    });
+}
 
-  getPost(4).then(console.log);
+getPost(4).then(console.log);
