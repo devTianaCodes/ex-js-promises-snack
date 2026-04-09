@@ -13,20 +13,23 @@ function getPostTitle(id) {
     .then((post) => post.title);
 }
 
+getPostTitle(4)
+  .then(console.log);
+
+
+//correction from video lesson:
 function getPostTitle1(id) {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     fetch(`https://dummyjson.com/posts/${id}`)
-        .then(response => response.json())
-        .then (post => resolve(post.title))
-        .catch( reject)
-  } )
+      .then(response => response.json())
+      .then(post => resolve(post.title))
+      .catch(reject)
+  })
 }
 
-getPostTitle(4)
-      .then(console.log);
 getPostTitle1(4)
-      .then( title => console.log(title));
-      //.catch(err => console.error(err));
+  .then(title => console.log(title));
+//.catch(err => console.error(err));
 
 
 
@@ -59,4 +62,26 @@ function getPost(id) {
     });
 }
 
-getPost(4).then(console.log);
+//getPost(4).then(console.log);
+
+
+//correction from video lesson
+function getPost1(id) {
+  return new Promise((resolve, reject) => {
+
+    fetch(`https://dummyjson.com/posts/${id}`)
+      .then(result => result.json())
+      .then(post => {
+
+        fetch(`https://dummyjson.com/users/${post.userId}`)
+          .then(result => result.json())
+          .then(user => resolve({...post, user}))
+          .catch(reject)
+      })
+      .catch(reject)
+  });
+}
+
+getPost1(4)
+  .then(console.log);
+//.catch(err => console.error(err));
